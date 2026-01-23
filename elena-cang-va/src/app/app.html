@@ -44,17 +44,45 @@
       </section>
     </div>
 
-    <!-- Testimonials -->
+    <!-- Testimonials Carousel -->
     <section>
       <h2 class="text-xs font-black text-blue-600 uppercase tracking-widest mb-16 text-center">Trusted By</h2>
-      <div class="grid gap-12">
-        <div *ngFor="let t of testimonials" class="relative bg-slate-50/50 p-10 rounded-[2rem] border border-slate-50 hover:border-blue-100 transition-colors">
-          <span class="absolute -top-6 left-8 text-8xl text-blue-600/10 font-serif leading-none select-none">“</span>
-          <p class="text-xl text-slate-700 italic mb-6 relative z-10 leading-relaxed font-medium">{{t.quote}}</p>
-          <div class="flex items-center space-x-4">
-             <div class="h-px w-8 bg-slate-300"></div>
-             <p class="text-sm font-black text-slate-900 uppercase tracking-widest">{{t.author}}</p>
+      <div class="relative max-w-2xl mx-auto">
+        <!-- Main Card -->
+        <div class="relative bg-slate-50/50 p-12 rounded-[2.5rem] border border-slate-50 min-h-[320px] md:min-h-[280px] flex flex-col justify-center transition-all duration-500">
+          <span class="absolute -top-8 left-10 text-9xl text-blue-600/10 font-serif leading-none select-none">“</span>
+
+          <div *ngFor="let t of testimonials; let i = index">
+            <div *ngIf="i === currentTestimonialIndex" class="transition-opacity duration-700">
+              <p class="text-xl md:text-2xl text-slate-700 italic mb-8 relative z-10 leading-relaxed font-medium">
+                {{t.quote}}
+              </p>
+              <div class="flex items-center space-x-4">
+                <div class="h-px w-8 bg-blue-600"></div>
+                <p class="text-sm font-black text-slate-900 uppercase tracking-widest">{{t.author}}</p>
+              </div>
+            </div>
           </div>
+        </div>
+
+        <!-- Controls -->
+        <div class="flex justify-between items-center mt-10 px-4">
+          <button (click)="prevTestimonial()" class="p-4 rounded-full bg-white border border-slate-100 text-slate-400 hover:text-blue-600 hover:border-blue-100 transition-all shadow-sm active:scale-90 cursor-pointer" aria-label="Previous testimonial">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+          </button>
+
+          <div class="flex space-x-3">
+            <button *ngFor="let t of testimonials; let i = index"
+                    (click)="setTestimonial(i)"
+                    [ngClass]="i === currentTestimonialIndex ? 'bg-blue-600 w-8' : 'bg-slate-200 w-2 hover:bg-slate-300'"
+                    class="h-2 rounded-full transition-all duration-300 cursor-pointer"
+                    [aria-label]="'Go to testimonial ' + (i + 1)">
+            </button>
+          </div>
+
+          <button (click)="nextTestimonial()" class="p-4 rounded-full bg-white border border-slate-100 text-slate-400 hover:text-blue-600 hover:border-blue-100 transition-all shadow-sm active:scale-90 cursor-pointer" aria-label="Next testimonial">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+          </button>
         </div>
       </div>
     </section>

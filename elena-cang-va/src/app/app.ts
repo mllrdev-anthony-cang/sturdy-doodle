@@ -36,4 +36,19 @@ export class App {
   ];
 
   currentYear = new Date().getFullYear();
+
+  currentTestimonialIndex = 0;
+
+  nextTestimonial() {
+    this.currentTestimonialIndex = (this.currentTestimonialIndex + 1) % this.testimonials.length;
+  }
+
+  prevTestimonial() {
+    this.currentTestimonialIndex =
+      (this.currentTestimonialIndex - 1 + this.testimonials.length) % this.testimonials.length;
+  }
+
+  setTestimonial(index: number) {
+    this.currentTestimonialIndex = index;
+  }
 }
